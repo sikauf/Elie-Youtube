@@ -10,16 +10,50 @@
     <div class="container">
         <header>
             <h1>Elie Loves Youtube</h1>
-            <img src="bow.png" alt="Bow" class="bow" style="background-color: transparent;"> <!-- Ensure you have a cute bow image named bow.png -->
+            <img src="bow.png" alt="Bow" class="bow" style="background-color: transparent;">
         </header>
         <main>
-            <p></p>
-            <form action="video.php" method="post">
-                <button id="specialButton">Click!</button>
-            </form>
+            <button id="randomVideoButton">Surprise Me!</button>
         </main>
         <footer>
+            <p>Made with 💖 for you.</p>
         </footer>
     </div>
+        
+            <script>
+                document.getElementById('randomVideoButton').addEventListener('click', function() {
+                    const apiKey = 'AIzaSyCKYtjoDrlFq3oIr8zW3Khprfkgy-LaOB0'; // Replace with your actual API key
+                    const channelId = 'UCy06jHRS_82N2i5v1YL7glQ';
+                    const maxResults = 50;
+        
+                    const url = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&type=video&maxResults=${maxResults}`;
+        
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const videos = data.items
+                                .map(item => item.id.videoId)
+                                .filter(id => id != null);
+        
+                            if (videos.length > 0) {
+                                const randomIndex = Math.floor(Math.random() * videos.length);
+                                const randomVideoId = videos[randomIndex];
+                                const videoUrl = `https://www.youtube.com/watch?v=${randomVideoId}`;
+                                
+                                window.location.href = videoUrl; // Redirects the browser to the random video
+                            } else {
+                                console.log("No videos found.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching data', error);
+                        });
+                });
+            </script>
 </body>
 </html>
