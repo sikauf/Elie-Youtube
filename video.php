@@ -12,7 +12,27 @@ $response = curl_exec($curl);
 $data = json_decode($response, true);
 curl_close($curl);
 
-// Handle the results here
-print_r($data);
+$videos = [];
+    foreach ($data['items'] as $item) {
+        if (isset($item['id']['videoId'])) {
+            $videos[] = $item['id']['videoId'];
+        }
+    }
+
+    if (count($videos) > 0) {
+        $randomIndex = rand(0, count($videos) - 1);
+        $randomVideoId = $videos[$randomIndex];
+        $videoUrl = "https://www.youtube.com/watch?v=$randomVideoId";
+
+        // Redirect to the random video URL
+        header("Location: $videoUrl");
+        exit;
+    } else {
+        echo "No videos found.";
+    }
+} else {
+    // Redirect back to your main page (or wherever you have the button)
+    header("Location: index.html");
+    exit;
 }
 ?>
