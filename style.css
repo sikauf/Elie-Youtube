@@ -1,0 +1,11 @@
+body {
+    background-color: #ffb6c1; /* Light pink background */
+}
+
+.header-banner {
+    background-color: #ff748c; /* Slightly darker pink for the banner */
+    color: white; /* White text color */
+    text-align: center; /* Center-align the text */
+    padding: 20px 0; /* Add some padding above and below the text */
+    font-size: 24px; /* Increase the font size */
+}
