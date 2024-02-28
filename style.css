@@ -36,6 +36,7 @@ header h1 {
     height: auto;
     margin-top: -20px;
     background: transparent;
+    background-color: transparent;
 }
 
 main p {
